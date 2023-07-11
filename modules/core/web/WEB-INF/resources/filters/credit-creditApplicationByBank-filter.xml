@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters xmlns="http://schemas.haulmont.com/thesis/5.1/filters.xsd">
+    <!--фильтр по банкам-->
+    <filterDescriptor>
+        <filterEntities>
+            <filterEntity screen="credit$CreditApplication.lookup"
+                          code="creditApplication.SysFilter.ByBank"
+                          entityName="credit$CreditApplication"/>
+        </filterEntities>
+        <conditions>
+            <filter>
+                <and>
+                    <c name="bank" class="com.haulmont.thesis.core.entity.Bank"
+                       caption="msg://com.company.credit.entity/CreditApplication"
+                       type="CUSTOM" entityAlias="d" join="join d.credit c">
+                        c.bank.id in (select k.id from df$Bank k where
+                        k.id = :component$genericFilter.bank59834)
+                        <param name="component$genericFilter.bank59834"
+                               javaClass="com.haulmont.thesis.core.entity.Bank">
+                            NULL
+                        </param>
+                    </c>
+                </and>
+            </filter>
+        </conditions>
+    </filterDescriptor>
+</filters>

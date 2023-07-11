@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) 2023 LTD Haulmont Samara. All Rights Reserved.
+  ~ Haulmont Samara proprietary and confidential.
+  ~ Use is subject to license terms.
+  -->
+
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        xmlns:thesis="http://schemas.haulmont.com/thesis/thesis-window.xsd"
+        class="com.yeliseev.credit.web.ui.creditkind.CreditKindEdit"
+        messagesPack="com.yeliseev.credit.web.ui.creditkind"
+        caption="msg://editCaption"
+        datasource="creditKindDs">
+    <dsContext>
+        <datasource id="creditKindDs"
+                    class="com.yeliseev.credit.entity.CreditKind"
+                    view="edit">
+        </datasource>
+    </dsContext>
+    <assign name="width" value="theme://thesis.gui.editor-fields.width"/>
+    <assign name="actionsPanelWidth" value="theme://thesis.edit-actions-pane.width"/>
+    <layout expand="mainPane" spacing="true">
+        <hbox id="mainPane" expand="tabsheet" stylename="no-window-padding-right" width="100%">
+            <tabSheet id="tabsheet" stylename="editor-main-tabsheet" height="100%">
+                <tab id="mainTab" caption="msg://mainTab">
+                    <scrollBox id="mainTabScrollBox" orientation="horizontal" scrollBars="both" width="100%"
+                               height="100%">
+                        <hbox id="mainGridBox" stylename="thesis-main-grid-box">
+                            <grid id="leftGrid" spacing="true" margin="true, true, false, false">
+                                <columns>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>
+                                    <row id="codeRow">
+                                        <textField id="code" property="code" datasource="creditKindDs"
+                                                   width="theme://thesis.gui.editor-fields.width"
+                                                   caption="msg://com.yeliseev.credit.entity/CreditKind.code"
+                                                   required="true"/>
+                                    </row>
+                                    <row id="nameRow">
+                                        <textField id="name" property="name" datasource="creditKindDs"
+                                                   width="theme://thesis.gui.editor-fields.width"
+                                                   caption="msg://com.yeliseev.credit.entity/CreditKind.name"
+                                                   required="true"/>
+                                    </row>
+                                    <row id="descriptionRow">
+                                        <textField id="description" property="description" datasource="creditKindDs"
+                                                   width="theme://thesis.gui.editor-fields.width"
+                                                   caption="msg://com.yeliseev.credit.entity/CreditKind.description"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </hbox>
+                    </scrollBox>
+                </tab>
+            </tabSheet>
+            <frame id="windowActions" screen="editWindowVerticalActions" width="${actionsPanelWidth}"/>
+        </hbox>
+    </layout>
+</window>

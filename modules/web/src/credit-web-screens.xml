@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) 2023 LTD Haulmont Samara. All Rights Reserved.
+  ~ Haulmont Samara proprietary and confidential.
+  ~ Use is subject to license terms.
+  -->
+
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="/credit-screens.xml"/>
+    <screen id="credit$CreditKind.browse" template="com/yeliseev/credit/web/ui/creditkind/credit-kind-browse.xml"/>
+    <screen id="credit$CreditKind.edit" template="com/yeliseev/credit/web/ui/creditkind/credit-kind-edit.xml"/>
+    <screen id="credit$CreditKind.lookup" template="com/yeliseev/credit/web/ui/creditkind/credit-kind-browse.xml"/>
+    <screen id="credit$Credit.browse" template="com/yeliseev/credit/web/ui/credit/credit-browse.xml"/>
+    <screen id="credit$Credit.edit" template="com/yeliseev/credit/web/ui/credit/credit-edit.xml"/>
+    <screen id="credit$Credit.lookup" template="com/yeliseev/credit/web/ui/credit/credit-browse.xml"/>
+    <screen id="credit$CreditApplication.browse"
+            template="com/yeliseev/credit/web/ui/creditapplication/credit-application-browse.xml"/>
+    <screen id="credit$CreditApplication.edit"
+            template="com/yeliseev/credit/web/ui/creditapplication/credit-application-edit.xml"/>
+    <screen id="credit$CreditApplication.lookup"
+            template="com/yeliseev/credit/web/ui/creditapplication/credit-application-browse.xml"/>
+    <screen id="credit$CreditApplication.templateBrowse"
+            template="com/yeliseev/credit/web/ui/creditapplication/credit-application-template-browse.xml"/>
+</screen-config>

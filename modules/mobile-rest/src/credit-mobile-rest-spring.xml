@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2023 LTD Haulmont Samara. All Rights Reserved.
+  ~ Haulmont Samara proprietary and confidential.
+  ~ Use is subject to license terms.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context">
+
+    <!-- Annotation-based beans -->
+    <context:component-scan base-package="com.yeliseev.credit.mobile.rest"/>
+    <bean id="credit_proxyCreator"
+          class="com.haulmont.thesis.mobile.rest.sys.remoting.MobileRestAPIRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="credit_BorrowerService" value="com.yeliseev.credit.service.BorrowerService"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>
