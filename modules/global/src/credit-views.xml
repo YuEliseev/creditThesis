@@ -15,6 +15,7 @@
     <view entity="credit$Credit" name="edit" extends="_base">
         <property name="creditKind" view="_minimal"/>
         <property name="bank" view="_minimal"/>
+        <property name="guarantor" view="_minimal"/>
         <property name="cardAdditionalInfo" view="_local"/>
         <property name="proc" view="_local"/>
         <property name="parentCard" view="card-tree-for-parent"/>

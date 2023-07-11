@@ -11,6 +11,7 @@ import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.Component;
 import com.haulmont.cuba.gui.components.DialogAction;
+import com.haulmont.cuba.gui.components.TextField;
 import com.yeliseev.credit.entity.*;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.thesis.web.ui.basic.editor.AbstractCardEditor;
@@ -24,6 +25,8 @@ import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.PersistenceHelper;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,8 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     protected UserSessionSource uss;
     @Inject
     private Dialogs dialogs;
+    @Inject
+    private TextField<BigDecimal> amount;
 
     @Override
     protected String getHiddenTabsConfig() {
@@ -115,11 +120,14 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     }
     @Override
     protected boolean preCommit(){
+
+        roundAmountCeiling();
         if (!flag){
             return validateAmount();
         }
         return super.preCommit();
     }
+
     public boolean validateAmount() {
         if (getItem().getAmount() == null){
             showOptionDialog(getMessage("Внимание"),
@@ -139,5 +147,10 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
             flag = true;
         }
         return flag;
+    }
+
+    private void roundAmountCeiling(){
+        BigDecimal value = amount.getValue();
+        amount.setValue(value.setScale(0, RoundingMode.CEILING));
     }
 }
