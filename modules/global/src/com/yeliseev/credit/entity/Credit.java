@@ -11,6 +11,7 @@ import com.haulmont.cuba.core.entity.annotation.EnableRestore;
 import com.haulmont.cuba.core.entity.annotation.Listeners;
 import com.haulmont.cuba.core.entity.annotation.TrackEditScreenHistory;
 import com.haulmont.cuba.core.global.DdlGeneration;
+import com.haulmont.cuba.security.entity.User;
 import com.haulmont.thesis.core.entity.Bank;
 import com.haulmont.thesis.core.entity.Individual;
 import com.haulmont.thesis.core.entity.TsCard;
@@ -36,6 +37,10 @@ public class Credit extends TsCard {
     protected String number;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BANK_MANAGER_ID")
+    protected User bankManager;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CREDI_KIND_ID")
     protected CreditKind creditKind;
 
@@ -53,6 +58,14 @@ public class Credit extends TsCard {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GUARANTOR_ID")
     protected Individual guarantor;
+
+    public User getBankManager() {
+        return bankManager;
+    }
+
+    public void setBankManager(User bankManager) {
+        this.bankManager = bankManager;
+    }
 
     public Individual getGuarantor() {
         return guarantor;

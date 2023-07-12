@@ -17,6 +17,7 @@ import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.thesis.web.ui.basic.editor.AbstractCardEditor;
 import com.haulmont.thesis.web.ui.basic.editor.CardHeaderFragment;
 import com.haulmont.workflow.core.app.WfUtils;
+import com.yeliseev.credit.service.CreditService;
 import org.apache.commons.lang.StringUtils;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.thesis.core.entity.Numerator;
@@ -42,6 +43,8 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     private Dialogs dialogs;
     @Inject
     private TextField<BigDecimal> amount;
+    @Inject
+    private CreditService creditService;
 
     @Override
     protected String getHiddenTabsConfig() {
@@ -120,16 +123,13 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     }
     @Override
     protected boolean preCommit(){
+        validateAmount();
 
-        roundAmountCeiling();
-        if (!flag){
-            return validateAmount();
-        }
-        return super.preCommit();
+        return super.preCommit() && flag;
     }
 
-    public boolean validateAmount() {
-        if (getItem().getAmount() == null){
+    public void validateAmount() {
+        if (getItem().getAmount() == null && !flag){
             showOptionDialog(getMessage("Внимание"),
                     getMessage("В документе не указана сумма кредита. Желаете сохранить документ?"),
                     MessageType.CONFIRMATION, new Action[]{new DialogAction(DialogAction.Type.YES, true) {
@@ -144,13 +144,13 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
                         }
                     }});
         }else{
+
+            /*Вызов сервиса округляющего сумму кредита по определённому виду кредита
+            * на данный момент округление выполняется по виду кредита "рефинансирование"
+            * из-за недостаточной конкретности в задании
+            * Предложение - добавить в creditKind поле специфицирующее тип округления*/
+            creditService.roundAmountCeiling(getItem());
             flag = true;
         }
-        return flag;
-    }
-
-    private void roundAmountCeiling(){
-        BigDecimal value = amount.getValue();
-        amount.setValue(value.setScale(0, RoundingMode.CEILING));
     }
 }

@@ -6,13 +6,72 @@
 
 package com.yeliseev.credit.web.ui.creditkind;
 
+import com.haulmont.cuba.core.global.MetadataTools;
+import com.haulmont.cuba.gui.Dialogs;
+import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions;
+import com.haulmont.cuba.gui.app.core.inputdialog.DialogOutcome;
+import com.haulmont.cuba.gui.app.core.inputdialog.InputParameter;
 import com.haulmont.cuba.gui.components.AbstractLookup;
+import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.Table;
+import com.haulmont.cuba.gui.screen.Subscribe;
+import com.yeliseev.credit.entity.Credit;
+import com.yeliseev.credit.entity.CreditKind;
+import com.yeliseev.credit.service.CreditKindService;
 
+import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class CreditKindBrowse extends AbstractLookup {
+    @Inject
+    private CreditKindService creditKindService;
+    @Inject
+    private Notifications notifications;
+    @Inject
+    private MetadataTools metadataTools;
+    @Inject
+    private Dialogs dialogs;
+    @Inject
+    private Table<CreditKind> creditKindsTable;
 
     @Override
     public void init(Map<String, Object> params) {
+    }
+
+    @Subscribe("showTotalAmountBtn")
+    public void onShowTotalAmountBtnClick(Button.ClickEvent event) {
+        CreditKind selectedItem = creditKindsTable.getSingleSelected();
+        if (!(selectedItem == null)){
+            BigDecimal totalAmount = creditKindService.getTotalCreditAmount(selectedItem);
+
+            notifications.create(Notifications.NotificationType.HUMANIZED)
+                    .withCaption(
+                            messages.getMessage("com.yeliseev.credit.web.ui.credit", "msg://totalAmountNotification") + " " +
+                                    metadataTools.getInstanceName(selectedItem) + " - " + totalAmount).show();
+        }
+    }
+    @Subscribe("changeCreditAmountBtn")
+    public void onChangeCreditAmountBtnClick(Button.ClickEvent event) {
+        dialogs.createInputDialog(this)
+                .withCaption(getMessage("changeCreditAmount"))
+                .withParameters(
+                        InputParameter
+                                .doubleParameter("amount")
+                                .withCaption("msg://Credit.amount"))
+                .withActions(
+                        DialogActions.OK_CANCEL)
+                .withCloseListener(closeEvent ->{
+                    if (closeEvent.closedWith(DialogOutcome.OK)){
+                        BigDecimal value = BigDecimal.valueOf((Double) closeEvent.getValue("amount"));
+
+                        CreditKind selectedItem = creditKindsTable.getSingleSelected();
+                        if (!(selectedItem == null)){
+
+                            creditKindService.changeCreditAmount(selectedItem, value);
+                        }
+                    }
+                }).show();
     }
 }

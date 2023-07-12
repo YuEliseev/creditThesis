@@ -4,7 +4,7 @@
  * Use is subject to license terms.
  */
 
-package com.yeliseev.credit.core.listener;
+package com.yeliseev.credit.core;
 
 import com.haulmont.cuba.core.EntityManager;
 import com.haulmont.cuba.core.Persistence;
@@ -19,7 +19,6 @@ import java.util.UUID;
 @Component(BorrowerBean.NAME)
 public class BorrowerBean {
     public static final String NAME = "credit_BorrowerBean";
-
     @Inject
     private Persistence persistence;
 

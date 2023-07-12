@@ -8,7 +8,7 @@ package com.yeliseev.credit.service;
 
 import com.haulmont.thesis.core.entity.Bank;
 import com.haulmont.thesis.core.entity.Contractor;
-import com.yeliseev.credit.core.listener.BorrowerBean;
+import com.yeliseev.credit.core.BorrowerBean;
 import com.yeliseev.credit.entity.CreditApplication;
 import org.springframework.stereotype.Service;
 

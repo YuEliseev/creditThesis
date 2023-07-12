@@ -44,6 +44,9 @@
                         <buttonsPanel id="buttonsPanel" alwaysVisible="true">
                             <button id="createBtn" icon="" action="cardsTable.create"/>
                             <thesis:separator/>
+                            <button id="showTotalAmountBtn" caption="msg://showTotalAmount"/>
+                            <button id="changeCreditAmountBtn" caption="msg://changeCreditAmount"/>
+                            <thesis:separator/>
                             <button id="editBtn" action="cardsTable.edit"/>
                             <button id="removeBtn" action="cardsTable.remove"/>
                             <button id="saveAsTemplateButton" icon="" visible="false"/>
@@ -80,6 +83,7 @@
                             <column id="amount"/>
                             <column id="creditKind"/>
                             <column id="bank"/>
+                            <column id="bankManager"/>
                             <column id="guarantor"/>
                         </columns>
                         <rows datasource="cardsDs"/>

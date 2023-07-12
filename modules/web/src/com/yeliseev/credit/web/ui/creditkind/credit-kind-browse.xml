@@ -36,6 +36,9 @@
                         <button id="createBtn"
                                 action="creditKindsTable.create"/>
                         <thesis:separator/>
+                        <button id="showTotalAmountBtn" caption="msg://showTotalAmount"/>
+                        <button id="changeCreditAmountBtn" caption="msg://changeCreditAmount"/>
+                        <thesis:separator/>
                         <button id="editBtn"
                                 action="creditKindsTable.edit"/>
                         <button id="removeBtn"

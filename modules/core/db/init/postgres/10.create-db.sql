@@ -21,6 +21,7 @@ create table CREDIT_CREDIT (
     CARD_ID uuid,
     --
     NUMBER_ varchar(50),
+    BANK_MANAGER_ID uuid,
     CREDI_KIND_ID uuid,
     BANK_ID uuid,
     DATE_ date,

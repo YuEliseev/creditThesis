@@ -38,6 +38,9 @@
         <collectionDatasource id="individualsDs" class="com.haulmont.thesis.core.entity.Individual" view="_minimal">
             <query><![CDATA[select e from df$Individual e]]></query>
         </collectionDatasource>
+        <collectionDatasource id="userDs" class="com.haulmont.cuba.security.entity.User" view="_minimal">
+            <query><![CDATA[select e from sec$User e]]></query>
+        </collectionDatasource>
     </dsContext>
     <assign name="width" value="theme://thesis.gui.editor-fields.width"/>
     <assign name="small_width" value="180px"/>
@@ -84,6 +87,12 @@
                                                              width="theme://thesis.gui.editor-fields.width"
                                                              caption="msg://com.yeliseev.credit.entity/Credit.bank"
                                                              optionsDatasource="banksDs"/>
+                                            </row>
+                                            <row id="bankManagerRow">
+                                                <lookupField id="bankManager" property="bankManager" datasource="cardDs"
+                                                             width="theme://thesis.gui.editor-fields.width"
+                                                             caption="msg://com.yeliseev.credit.entity/Credit.bankManager"
+                                                             optionsDatasource="userDs"/>
                                             </row>
                                             <row id="guarantorRow">
                                                 <lookupField id="guarantor" property="guarantor" datasource="cardDs"
