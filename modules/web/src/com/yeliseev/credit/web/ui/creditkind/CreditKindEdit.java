@@ -21,11 +21,9 @@ import java.util.Map;
 
 public class CreditKindEdit<T extends CreditKind> extends AbstractEditor<T> {
     @Inject
-    TextField code;
+    protected TextField code;
     @Inject
-    UniqueNumbersService uniqueNumbersService;
-    @Inject
-    TimeSource timeSource;
+    protected UniqueNumbersService uniqueNumbersService;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -41,7 +39,7 @@ public class CreditKindEdit<T extends CreditKind> extends AbstractEditor<T> {
 
     }
 
-    private void initCreditKindCode(){
+    protected void initCreditKindCode(){
 
             code.setValue("CreditKind_" + (uniqueNumbersService.getNextNumber("creditKind")));
             code.setEditable(false);

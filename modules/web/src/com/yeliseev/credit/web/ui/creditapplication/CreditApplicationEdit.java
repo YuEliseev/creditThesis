@@ -38,15 +38,15 @@ public class  CreditApplicationEdit<T extends CreditApplication> extends Abstrac
     @Inject
     protected LookupPickerField<DocCategory> docCategory;
     @Inject
-    private CollectionDatasource<Credit, UUID> creditsDs;
+    protected CollectionDatasource<Credit, UUID> creditsDs;
     @Inject
-    private BorrowerService borrowerService;
+    protected BorrowerService borrowerService;
     @Inject
-    private TextField<Bank> bank;
+    protected TextField<Bank> bank;
     @Inject
-    private LookupField<Contractor> borrower;
+    protected LookupField<Contractor> borrower;
     @Inject
-    private TextField<String> bankApplication;
+    protected TextField<String> bankApplication;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -55,7 +55,6 @@ public class  CreditApplicationEdit<T extends CreditApplication> extends Abstrac
         borrower.addValueChangeListener(stringValueChangeEvent -> fillBankApplication());
         bank.addValueChangeListener(stringValueChangeEvent -> fillBankApplication());
     }
-
 
     @Override
     public void setItem(Entity item) {
@@ -88,7 +87,7 @@ public class  CreditApplicationEdit<T extends CreditApplication> extends Abstrac
         super.fillHiddenTabs();
     }
 
-    private void fillBankApplication(){
+    protected void fillBankApplication(){
         if (!(getItem().getCredit() == null)){
             if (!(getItem().getCredit().getBank() == null) && !(getItem().getBorrower() == null)){
                 bankApplication.setValue(

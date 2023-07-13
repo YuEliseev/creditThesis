@@ -6,8 +6,11 @@
 
 package com.yeliseev.credit.web.ui.credit;
 
-
+import com.haulmont.cuba.core.global.AppBeans;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.thesis.core.app.ThesisConstants;
+import com.haulmont.thesis.core.app.UserSessionTools;
+import com.haulmont.thesis.core.app.UserSessionToolsImpl;
 import com.yeliseev.credit.entity.*;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.thesis.web.ui.basic.editor.AbstractCardEditor;
@@ -20,6 +23,7 @@ import com.haulmont.thesis.core.entity.Numerator;
 import com.haulmont.thesis.core.app.NumerationService;
 import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.PersistenceHelper;
+import org.apache.poi.ss.usermodel.Row;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
@@ -29,27 +33,27 @@ import java.util.Map;
 
 public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
 
-    private Boolean flag = false;
+    protected Boolean flag = false;
     @Inject
     protected NumerationService numerationService;
     @Inject
     protected UserSessionSource uss;
     @Inject
-    private CreditService creditService;
+    protected CreditService creditService;
     @Inject
-    private LookupField bank;
+    protected LookupField bank;
     @Inject
-    private TextField bankAmount;
+    protected TextField bankAmount;
     @Inject
-    private TextField amount;
+    protected TextField amount;
 
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
 
+        initAmountField();
         bank.addValueChangeListener(valueChangeEvent -> fillBankAmount());
         amount.addValueChangeListener(valueChangeEvent -> roundAmountValue());
-
     }
 
     @Override
@@ -67,6 +71,8 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
             initDefaultActors();
         }
         initCardHeader(card);
+
+
     }
 
     protected boolean isNumberAssignNeeded() {
@@ -112,7 +118,6 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         cardHeaderFragment.setDetailsInfoItemVisible("headerProcNameCaption", "headerProcName",
         !WfUtils.isCardInState(item, "New") && StringUtils.isNotEmpty(item.getState()));
     }
-    
 
     @Override
     protected void initCardRolesFrame() {
@@ -154,7 +159,7 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         }
     }
 
-    private void roundAmountValue(){
+    protected void roundAmountValue(){
         /*Вызов сервиса округляющего сумму кредита по определённому виду кредита
          * на данный момент округление выполняется по виду кредита "рефинансирование"
          * из-за недостаточной конкретности в задании
@@ -162,7 +167,7 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         creditService.roundAmountCeiling(getItem());
     }
 
-    private void fillBankAmount(){
+    protected void fillBankAmount(){
         if (!(getItem().getBank() == null)){
 
             bankAmount.setValue(String.valueOf(
@@ -174,4 +179,12 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         }
     }
 
+    protected void initAmountField(){
+        UserSessionToolsImpl userSessionTools = AppBeans.get(UserSessionToolsImpl.class);
+        if(!userSessionTools.isCurrentUserInRole(ThesisConstants.SEC_ROLE_ADMINISTRATOR)){
+            getComponent("amount").setVisible(false);
+            amount.setVisible(false);
+
+        }
+    }
 }

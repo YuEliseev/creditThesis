@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class BorrowerServiceBean implements BorrowerService {
 
     @Inject
-    private BorrowerBean borrowerBean;
+    BorrowerBean borrowerBean;
 
     @Override
     public long getCountCreditApplication(CreditApplication creditApplication) {

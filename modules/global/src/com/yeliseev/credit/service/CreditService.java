@@ -7,6 +7,7 @@
 package com.yeliseev.credit.service;
 
 import com.yeliseev.credit.entity.Credit;
+import com.yeliseev.credit.entity.CreditKind;
 
 import java.math.BigDecimal;
 
@@ -17,5 +18,7 @@ public interface CreditService {
 
     void roundAmountCeiling(Credit credit);
 
-    void changeCreditAmount(Credit credit, BigDecimal newAmount);
+    void addCreditKindAmount(CreditKind creditkind, BigDecimal addition);
+
+    BigDecimal getCreditKindAmount(CreditKind creditKind);
 }

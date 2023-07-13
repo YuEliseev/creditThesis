@@ -31,7 +31,7 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "CARD_ID", referencedColumnName = "ID")
 @NamePattern("%s|creditKind")
 public class Credit extends TsCard {
-    private static final long serialVersionUID = 723129079835793532L;
+    protected static final long serialVersionUID = 723129079835793532L;
 
     @Column(name = "NUMBER_", length = 50)
     protected String number;

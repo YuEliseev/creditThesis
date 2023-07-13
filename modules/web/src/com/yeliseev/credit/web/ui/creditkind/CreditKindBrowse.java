@@ -15,6 +15,7 @@ import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.screen.Subscribe;
 import com.yeliseev.credit.entity.CreditKind;
+import com.yeliseev.credit.service.CreditService;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -22,11 +23,11 @@ import java.util.Map;
 
 public class CreditKindBrowse extends AbstractLookup {
     @Inject
-    private CreditKindService creditKindService;
+    protected CreditService creditService;
     @Inject
-    private Dialogs dialogs;
+    protected Dialogs dialogs;
     @Inject
-    private Table<CreditKind> creditKindsTable;
+    protected Table<CreditKind> creditKindsTable;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -35,21 +36,23 @@ public class CreditKindBrowse extends AbstractLookup {
     @Subscribe("changeCreditAmountBtn")
     public void onChangeCreditAmountBtnClick(Button.ClickEvent event) {
         dialogs.createInputDialog(this)
-                .withCaption(getMessage("changeCreditAmount"))
+                .withCaption(getMessage("addAmountTitle"))
                 .withParameters(
                         InputParameter
                                 .doubleParameter("amount")
-                                .withCaption("msg://Credit.amount"))
+                                .withCaption(getMessage("addAmountCaption")))
                 .withActions(
                         DialogActions.OK_CANCEL)
                 .withCloseListener(closeEvent ->{
                     if (closeEvent.closedWith(DialogOutcome.OK)){
-                        BigDecimal value = BigDecimal.valueOf((Double) closeEvent.getValue("amount"));
-
                         CreditKind selectedItem = creditKindsTable.getSingleSelected();
-                        if (!(selectedItem == null)){
+                        Double eventValue = closeEvent.getValue("amount");
 
-                            creditKindService.changeCreditAmount(selectedItem, value);
+                        if (!(selectedItem == null && eventValue == null)){
+                        BigDecimal value = BigDecimal.valueOf(eventValue);
+
+                        creditService.addCreditKindAmount(selectedItem, value);
+
                         }
                     }
                 }).show();

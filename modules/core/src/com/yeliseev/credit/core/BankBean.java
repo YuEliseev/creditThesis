@@ -19,7 +19,7 @@ import java.util.UUID;
 @Component(BankBean.NAME)
 public class BankBean {
     @Inject
-    private Persistence persistence;
+    protected Persistence persistence;
 
     public static final String NAME = "credit_BankBean";
 

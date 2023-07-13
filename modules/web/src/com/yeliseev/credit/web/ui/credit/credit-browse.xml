@@ -44,9 +44,6 @@
                         <buttonsPanel id="buttonsPanel" alwaysVisible="true">
                             <button id="createBtn" icon="" action="cardsTable.create"/>
                             <thesis:separator/>
-                            <button id="showTotalAmountBtn" caption="msg://showTotalAmount"/>
-                            <button id="changeCreditAmountBtn" caption="msg://changeCreditAmount"/>
-                            <thesis:separator/>
                             <button id="editBtn" action="cardsTable.edit"/>
                             <button id="removeBtn" action="cardsTable.remove"/>
                             <button id="saveAsTemplateButton" icon="" visible="false"/>

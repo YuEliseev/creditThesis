@@ -20,7 +20,7 @@ import java.util.UUID;
 public class BorrowerBean {
     public static final String NAME = "credit_BorrowerBean";
     @Inject
-    private Persistence persistence;
+    protected Persistence persistence;
 
     public long getCountCreditApplication(UUID borrowerId, UUID bankId){
         Long result;

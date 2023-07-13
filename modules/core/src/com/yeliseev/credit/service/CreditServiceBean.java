@@ -10,6 +10,7 @@ import com.yeliseev.credit.core.BankBean;
 import com.yeliseev.credit.core.CreditBean;
 import com.yeliseev.credit.core.CreditKindBean;
 import com.yeliseev.credit.entity.Credit;
+import com.yeliseev.credit.entity.CreditKind;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -34,7 +35,6 @@ public class CreditServiceBean implements CreditService {
             }
         }
     }
-
     @Override
     public BigDecimal getTotalBankAmount(Credit credit) {
 
@@ -42,8 +42,14 @@ public class CreditServiceBean implements CreditService {
     }
 
     @Override
-    public void changeCreditAmount(Credit credit, BigDecimal newAmount) {
+    public void addCreditKindAmount(CreditKind creditkind, BigDecimal addition) {
 
-        creditBean.changeAmount(credit.getId(), newAmount);
+        creditKindBean.addAmount(creditkind.getId(), addition);
+    }
+
+    @Override
+    public BigDecimal getCreditKindAmount(CreditKind creditKind) {
+
+        return creditKindBean.getTotalAmount(creditKind.getId());
     }
 }

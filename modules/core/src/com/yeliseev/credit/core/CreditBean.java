@@ -21,7 +21,7 @@ import java.util.UUID;
 public class CreditBean {
     public static final String NAME = "credit_CreditBean";
     @Inject
-    private Persistence persistence;
+    protected Persistence persistence;
 
     public void roundAmountCeiling(UUID creditId, BigDecimal amount) {
 
@@ -32,20 +32,6 @@ public class CreditBean {
                     .createQuery("update credit$Credit c set c.amount = :newAmount where c.id = :creditId");
             query.setParameter("newAmount", amount.setScale(0, RoundingMode.CEILING));
             query.setParameter("creditId", creditId);
-
-            query.executeUpdate();
-            transaction.commit();
-        }
-    }
-    public void changeAmount(UUID creditId, BigDecimal newAmount){
-
-        try (Transaction transaction = persistence.createTransaction()) {
-            EntityManager entityManager = persistence.getEntityManager();
-
-            Query query = entityManager
-                    .createQuery("update credit$Credit c set c.amount = :newAmount where c.id = :creditId");
-            query.setParameter("creditId", creditId);
-            query.setParameter("newAmount", newAmount);
 
             query.executeUpdate();
             transaction.commit();

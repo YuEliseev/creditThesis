@@ -19,18 +19,36 @@ import java.util.UUID;
 @Component(CreditKindBean.NAME)
 public class CreditKindBean {
     @Inject
-    private Persistence persistence;
+    protected Persistence persistence;
     public static final String NAME = "credit_CreditKindBean";
 
-    public void changeAmount(UUID creditKindId, BigDecimal newAmount){
+    public BigDecimal getTotalAmount(UUID creditKindId){
+        BigDecimal result;
+
+        try (Transaction transaction = persistence.createTransaction()) {
+            EntityManager entityManager = persistence.getEntityManager();
+
+            Query query = entityManager.createQuery("select sum(c.amount) from credit$Credit c " +
+                    "join c.creditKind k where k.id = :creditKindId");
+            query.setParameter("creditKindId", creditKindId);
+            result = (BigDecimal) query.getFirstResult();
+
+            transaction.commit();
+        }
+
+        return result != null ? result : BigDecimal.ZERO;
+    }
+
+    public void addAmount(UUID creditKindId, BigDecimal addition){
 
         try (Transaction transaction = persistence.createTransaction()) {
             EntityManager entityManager = persistence.getEntityManager();
 
             Query query = entityManager
-                    .createQuery("update credit$Credit c set c.amount = :newAmount where c.id = :creditId");
-            query.setParameter("creditId", creditKindId);
-            query.setParameter("newAmount", newAmount);
+                    .createQuery("update credit$Credit c set c.amount = (c.amount + :addition) " +
+                            "where c.creditKind.id = :creditKindId");
+            query.setParameter("creditKindId", creditKindId);
+            query.setParameter("addition", addition);
 
             query.executeUpdate();
             transaction.commit();
