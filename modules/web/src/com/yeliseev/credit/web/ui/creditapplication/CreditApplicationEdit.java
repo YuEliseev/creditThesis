@@ -7,9 +7,6 @@
 package com.yeliseev.credit.web.ui.creditapplication;
 
 import com.haulmont.cuba.core.entity.Entity;
-import com.haulmont.cuba.core.global.CommitContext;
-import com.haulmont.cuba.core.global.PersistenceHelper;
-import com.haulmont.cuba.gui.components.Label;
 import com.haulmont.cuba.gui.components.LookupField;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
@@ -20,15 +17,12 @@ import com.haulmont.thesis.web.ui.basicdoc.editor.AbstractDocEditor;
 import com.haulmont.thesis.web.voice.VoiceActionPriorities;
 import com.haulmont.cuba.gui.components.LookupPickerField;
 import com.haulmont.thesis.core.entity.DocCategory;
-import com.haulmont.workflow.core.entity.CardRelation;
 import com.yeliseev.credit.entity.Credit;
 import com.yeliseev.credit.entity.CreditApplication;
 import com.yeliseev.credit.service.BorrowerService;
 
 import javax.inject.Inject;
-import javax.persistence.Persistence;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 import static com.haulmont.thesis.web.voice.VoiceCompanionsRepository.voiceCompanion;

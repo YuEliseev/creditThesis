@@ -9,7 +9,6 @@ package com.yeliseev.credit.web.ui.credit;
 import com.haulmont.cuba.core.global.AppBeans;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.thesis.core.app.ThesisConstants;
-import com.haulmont.thesis.core.app.UserSessionTools;
 import com.haulmont.thesis.core.app.UserSessionToolsImpl;
 import com.yeliseev.credit.entity.*;
 import com.haulmont.cuba.core.global.UserSessionSource;
@@ -23,7 +22,6 @@ import com.haulmont.thesis.core.entity.Numerator;
 import com.haulmont.thesis.core.app.NumerationService;
 import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.PersistenceHelper;
-import org.apache.poi.ss.usermodel.Row;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
