@@ -18,8 +18,6 @@
             <map>
                 <entry key="credit_BorrowerService" value="com.yeliseev.credit.service.BorrowerService"/>
                 <entry key="credit_CreditService" value="com.yeliseev.credit.service.CreditService"/>
-                <entry key="credit_CreditKindService" value="com.yeliseev.credit.service.CreditKindService"/>
-                <entry key="credit_BankService" value="com.yeliseev.credit.service.BankService"/>
             </map>
         </property>
     </bean>

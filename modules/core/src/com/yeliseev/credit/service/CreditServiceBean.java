@@ -6,7 +6,9 @@
 
 package com.yeliseev.credit.service;
 
+import com.yeliseev.credit.core.BankBean;
 import com.yeliseev.credit.core.CreditBean;
+import com.yeliseev.credit.core.CreditKindBean;
 import com.yeliseev.credit.entity.Credit;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ import java.math.BigDecimal;
 public class CreditServiceBean implements CreditService {
     @Inject
     CreditBean creditBean;
+    @Inject
+    BankBean bankBean;
+    @Inject
+    CreditKindBean creditKindBean;
+
 
     @Override
     public void roundAmountCeiling(Credit credit) {
@@ -26,6 +33,12 @@ public class CreditServiceBean implements CreditService {
                 creditBean.roundAmountCeiling(credit.getId(), credit.getAmount());
             }
         }
+    }
+
+    @Override
+    public BigDecimal getTotalBankAmount(Credit credit) {
+
+        return bankBean.getTotalAmount(credit.getBank().getId());
     }
 
     @Override

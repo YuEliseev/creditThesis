@@ -6,7 +6,6 @@
 
 package com.yeliseev.credit.web.ui.creditkind;
 
-import com.haulmont.cuba.core.global.MetadataTools;
 import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions;
 import com.haulmont.cuba.gui.app.core.inputdialog.DialogOutcome;
@@ -16,7 +15,6 @@ import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.screen.Subscribe;
 import com.yeliseev.credit.entity.CreditKind;
-import com.yeliseev.credit.service.CreditKindService;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;

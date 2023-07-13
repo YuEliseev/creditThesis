@@ -7,14 +7,12 @@
 package com.yeliseev.credit.web.ui.credit;
 
 
-import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.components.*;
 import com.yeliseev.credit.entity.*;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.thesis.web.ui.basic.editor.AbstractCardEditor;
 import com.haulmont.thesis.web.ui.basic.editor.CardHeaderFragment;
 import com.haulmont.workflow.core.app.WfUtils;
-import com.yeliseev.credit.service.BankService;
 import com.yeliseev.credit.service.CreditService;
 import org.apache.commons.lang.StringUtils;
 import com.haulmont.cuba.core.global.LoadContext;
@@ -24,7 +22,6 @@ import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.PersistenceHelper;
 
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -40,17 +37,19 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     @Inject
     private CreditService creditService;
     @Inject
-    private BankService bankService;
-    @Inject
     private LookupField bank;
     @Inject
-    private TextField<String> bankAmount;
+    private TextField bankAmount;
+    @Inject
+    private TextField amount;
 
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
 
         bank.addValueChangeListener(valueChangeEvent -> fillBankAmount());
+        amount.addValueChangeListener(valueChangeEvent -> roundAmountValue());
+
     }
 
     @Override
@@ -135,8 +134,6 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         return super.preCommit() && flag;
     }
 
-
-
     public void validateAmount() {
         if (getItem().getAmount() == null && !flag){
             showOptionDialog(getMessage("Внимание"),
@@ -153,21 +150,23 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
                         }
                     }});
         }else{
-
-            /*Вызов сервиса округляющего сумму кредита по определённому виду кредита
-            * на данный момент округление выполняется по виду кредита "рефинансирование"
-            * из-за недостаточной конкретности в задании
-            * Предложение - добавить в creditKind поле специфицирующее тип округления*/
-            creditService.roundAmountCeiling(getItem());
             flag = true;
         }
+    }
+
+    private void roundAmountValue(){
+        /*Вызов сервиса округляющего сумму кредита по определённому виду кредита
+         * на данный момент округление выполняется по виду кредита "рефинансирование"
+         * из-за недостаточной конкретности в задании
+         * Предложение - добавить в creditKind поле специфицирующее тип округления*/
+        creditService.roundAmountCeiling(getItem());
     }
 
     private void fillBankAmount(){
         if (!(getItem().getBank() == null)){
 
             bankAmount.setValue(String.valueOf(
-                    bankService.getTotalBankAmount(getItem())
+                    creditService.getTotalBankAmount(getItem())
             ));
         }else{
 

@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 public interface CreditService {
     String NAME = "credit_CreditService";
 
+    BigDecimal getTotalBankAmount(Credit credit);
+
     void roundAmountCeiling(Credit credit);
 
     void changeCreditAmount(Credit credit, BigDecimal newAmount);
