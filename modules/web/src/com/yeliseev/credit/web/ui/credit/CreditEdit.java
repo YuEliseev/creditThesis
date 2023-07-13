@@ -8,15 +8,13 @@ package com.yeliseev.credit.web.ui.credit;
 
 
 import com.haulmont.cuba.gui.Dialogs;
-import com.haulmont.cuba.gui.components.Action;
-import com.haulmont.cuba.gui.components.Component;
-import com.haulmont.cuba.gui.components.DialogAction;
-import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.gui.components.*;
 import com.yeliseev.credit.entity.*;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.thesis.web.ui.basic.editor.AbstractCardEditor;
 import com.haulmont.thesis.web.ui.basic.editor.CardHeaderFragment;
 import com.haulmont.workflow.core.app.WfUtils;
+import com.yeliseev.credit.service.BankService;
 import com.yeliseev.credit.service.CreditService;
 import org.apache.commons.lang.StringUtils;
 import com.haulmont.cuba.core.global.LoadContext;
@@ -27,10 +25,10 @@ import com.haulmont.cuba.core.global.PersistenceHelper;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
 
@@ -40,11 +38,20 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
     @Inject
     protected UserSessionSource uss;
     @Inject
-    private Dialogs dialogs;
-    @Inject
-    private TextField<BigDecimal> amount;
-    @Inject
     private CreditService creditService;
+    @Inject
+    private BankService bankService;
+    @Inject
+    private LookupField bank;
+    @Inject
+    private TextField<String> bankAmount;
+
+    @Override
+    public void init(Map<String, Object> params) {
+        super.init(params);
+
+        bank.addValueChangeListener(valueChangeEvent -> fillBankAmount());
+    }
 
     @Override
     protected String getHiddenTabsConfig() {
@@ -128,6 +135,8 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
         return super.preCommit() && flag;
     }
 
+
+
     public void validateAmount() {
         if (getItem().getAmount() == null && !flag){
             showOptionDialog(getMessage("Внимание"),
@@ -153,4 +162,17 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
             flag = true;
         }
     }
+
+    private void fillBankAmount(){
+        if (!(getItem().getBank() == null)){
+
+            bankAmount.setValue(String.valueOf(
+                    bankService.getTotalBankAmount(getItem())
+            ));
+        }else{
+
+            bankAmount.setValue("0");
+        }
+    }
+
 }

@@ -14,7 +14,5 @@ import java.math.BigDecimal;
 public interface CreditKindService {
     String NAME = "credit_CreditKindService";
 
-    BigDecimal getTotalCreditAmount(CreditKind creditKind);
-
     void changeCreditAmount(CreditKind creditKind, BigDecimal newAmount);
 }

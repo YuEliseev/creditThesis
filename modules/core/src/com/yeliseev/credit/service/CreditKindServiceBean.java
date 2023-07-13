@@ -7,7 +7,6 @@
 package com.yeliseev.credit.service;
 
 import com.yeliseev.credit.core.CreditKindBean;
-import com.yeliseev.credit.entity.Credit;
 import com.yeliseev.credit.entity.CreditKind;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,6 @@ import java.math.BigDecimal;
 public class CreditKindServiceBean implements CreditKindService {
     @Inject
     private CreditKindBean creditKindBean;
-
-    @Override
-    public BigDecimal getTotalCreditAmount(CreditKind creditKind) {
-
-        return creditKindBean.getTotalAmount(creditKind.getId());
-    }
 
     @Override
     public void changeCreditAmount(CreditKind creditKind, BigDecimal newAmount) {

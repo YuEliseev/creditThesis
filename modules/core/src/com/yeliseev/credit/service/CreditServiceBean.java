@@ -29,12 +29,6 @@ public class CreditServiceBean implements CreditService {
     }
 
     @Override
-    public BigDecimal getTotalCreditAmount(Credit credit) {
-
-        return creditBean.getTotalAmount(credit.getCreditKind().getId());
-    }
-
-    @Override
     public void changeCreditAmount(Credit credit, BigDecimal newAmount) {
 
         creditBean.changeAmount(credit.getId(), newAmount);

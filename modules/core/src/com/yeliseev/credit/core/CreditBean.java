@@ -37,23 +37,6 @@ public class CreditBean {
             transaction.commit();
         }
     }
-
-    public BigDecimal getTotalAmount(UUID creditKindId) {
-        BigDecimal result;
-
-        try (Transaction transaction = persistence.createTransaction()) {
-            EntityManager entityManager = persistence.getEntityManager();
-
-            Query query = entityManager.createQuery("select sum(c.amount) from credit$Credit c " +
-                            "join c.creditKind k where k.id = :creditKindId");
-            query.setParameter("creditKindId", creditKindId);
-            result = (BigDecimal) query.getFirstResult();
-
-            transaction.commit();
-        }
-
-        return result != null ? result : BigDecimal.ZERO;
-    }
     public void changeAmount(UUID creditId, BigDecimal newAmount){
 
         try (Transaction transaction = persistence.createTransaction()) {

@@ -216,7 +216,7 @@
                                                 <textField id="bankApplication"
                                                            editable="false"
                                                            width="theme://thesis.gui.editor-fields.width"
-                                                caption="msg://creditApplicationCount"/>
+                                                           caption="msg://creditApplicationCount"/>
                                             </row>
                                             <row id="checkBoxesRow">
                                                 <vbox id="checkBoxesBox" stylename="thesis-checkbox-box" spacing="true">

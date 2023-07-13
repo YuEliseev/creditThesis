@@ -60,7 +60,6 @@ public class  CreditApplicationEdit<T extends CreditApplication> extends Abstrac
     @Override
     public void setItem(Entity item) {
         super.setItem(item);
-//        fillBankApplication();
     }
 
     @Override
@@ -92,7 +91,9 @@ public class  CreditApplicationEdit<T extends CreditApplication> extends Abstrac
     private void fillBankApplication(){
         if (!(getItem().getCredit() == null)){
             if (!(getItem().getCredit().getBank() == null) && !(getItem().getBorrower() == null)){
-                bankApplication.setValue(String.valueOf(borrowerService.getCountCreditApplication(getItem())));
+                bankApplication.setValue(
+                        String.valueOf(
+                                borrowerService.getCountCreditApplication(getItem())));
             }
         }
     }

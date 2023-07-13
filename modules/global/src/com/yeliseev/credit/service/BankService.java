@@ -10,10 +10,8 @@ import com.yeliseev.credit.entity.Credit;
 
 import java.math.BigDecimal;
 
-public interface CreditService {
-    String NAME = "credit_CreditService";
+public interface BankService {
+    String NAME = "credit_BankService";
 
-    void roundAmountCeiling(Credit credit);
-
-    void changeCreditAmount(Credit credit, BigDecimal newAmount);
+    BigDecimal getTotalBankAmount(Credit credit);
 }

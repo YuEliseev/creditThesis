@@ -35,18 +35,18 @@ public class CreditBrowse<T extends TsCard> extends AbstractCardBrowser<T> {
     @Inject
     private GroupTable<Credit> cardsTable;
 
-    @Subscribe("showTotalAmountBtn")
-    public void onShowTotalAmountBtnClick(Button.ClickEvent event) {
-        Credit selectedItem = cardsTable.getSingleSelected();
-        if (!(selectedItem == null)){
-            BigDecimal totalAmount = creditService.getTotalCreditAmount(selectedItem);
-
-            notifications.create(Notifications.NotificationType.HUMANIZED)
-                    .withCaption(
-                            messages.getMessage("com.yeliseev.credit.web.ui.credit", "msg://totalAmountNotification") + " " +
-                            metadataTools.getInstanceName(selectedItem) + " - " + totalAmount).show();
-        }
-    }
+//    @Subscribe("showTotalAmountBtn")
+//    public void onShowTotalAmountBtnClick(Button.ClickEvent event) {
+//        Credit selectedItem = cardsTable.getSingleSelected();
+//        if (!(selectedItem == null)){
+//            BigDecimal totalAmount = creditService.getTotalCreditAmount(selectedItem);
+//
+//            notifications.create(Notifications.NotificationType.HUMANIZED)
+//                    .withCaption(
+//                            messages.getMessage("com.yeliseev.credit.web.ui.credit", "msg://totalAmountNotification") + " " +
+//                            metadataTools.getInstanceName(selectedItem) + " - " + totalAmount).show();
+//        }
+//    }
     @Subscribe("changeCreditAmountBtn")
     public void onChangeCreditAmountBtnClick(Button.ClickEvent event) {
         dialogs.createInputDialog(this)

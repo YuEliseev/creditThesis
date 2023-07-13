@@ -16,24 +16,27 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Component(CreditKindBean.NAME)
-public class CreditKindBean {
+@Component(BankBean.NAME)
+public class BankBean {
     @Inject
     private Persistence persistence;
-    public static final String NAME = "credit_CreditKindBean";
 
-    public void changeAmount(UUID creditKindId, BigDecimal newAmount){
+    public static final String NAME = "credit_BankBean";
+
+    public BigDecimal getTotalAmount(UUID bankId) {
+        BigDecimal result;
 
         try (Transaction transaction = persistence.createTransaction()) {
             EntityManager entityManager = persistence.getEntityManager();
 
-            Query query = entityManager
-                    .createQuery("update credit$Credit c set c.amount = :newAmount where c.id = :creditId");
-            query.setParameter("creditId", creditKindId);
-            query.setParameter("newAmount", newAmount);
+            Query query = entityManager.createQuery("select sum(c.amount) from credit$Credit c " +
+                    "join c.bank b where b.id = :bankId");
+            query.setParameter("bankId", bankId);
+            result = (BigDecimal) query.getFirstResult();
 
-            query.executeUpdate();
             transaction.commit();
         }
+
+        return result != null ? result : BigDecimal.ZERO;
     }
 }

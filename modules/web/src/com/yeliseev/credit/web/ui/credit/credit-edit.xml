@@ -88,6 +88,12 @@
                                                              caption="msg://com.yeliseev.credit.entity/Credit.bank"
                                                              optionsDatasource="banksDs"/>
                                             </row>
+                                            <row id="bankAmountRow">
+                                                <textField id="bankAmount"
+                                                             editable="false"
+                                                             width="theme://thesis.gui.editor-fields.width"
+                                                             caption="msg://totalBankAmount"/>
+                                            </row>
                                             <row id="bankManagerRow">
                                                 <lookupField id="bankManager" property="bankManager" datasource="cardDs"
                                                              width="theme://thesis.gui.editor-fields.width"
