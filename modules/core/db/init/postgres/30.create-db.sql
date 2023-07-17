@@ -196,5 +196,14 @@ LANGUAGE plpgsql;
 ^
 select baseInsert();^
 drop function if exists baseInsert();^
-
 -- end insert cardType for CreditApplication
+
+-- insert new Role
+insert into sec_role(id, create_ts, created_by, version, name, loc_name, description, role_type, is_default_role) values
+(newid(), current_timestamp, 'system', 1, 'secOfficer', 'Служба Безопасности', 'Сотрудник службы безопасности банка', 0, false),
+(newid(), current_timestamp, 'system', 1, 'legalOfficer', 'Юридический Отдел', 'Сотрудник юридического отдела', 0, false);
+-- end insert new Role
+-- insert new wf-proc
+update WF_PROC set code='creditProcessing', card_types = ',credit$CreditApplication,', update_ts=current_timestamp, updated_by='system'
+where name = 'creditProcessing'^
+--end insert new wf-proc

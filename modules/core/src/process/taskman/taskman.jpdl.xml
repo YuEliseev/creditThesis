@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019 LTD Haulmont Samara. All Rights Reserved.
+  ~ Haulmont Samara proprietary and confidential.
+  ~ Use is subject to license terms.
+  -->
+
+<process name="Task Management" key="TaskManagement" xmlns="http://jbpm.org/4.2/jpdl">
+
+    <on event="end">
+        <event-listener class="com.haulmont.workflow.core.activity.RemoveTimersEventListener"/>
+    </on>
+
+    <start name="Start">
+        <!--used only for create role in deploy process-->
+        <property name="observers">
+            <string value="90-Observer"/>
+        </property>
+        <transition to="Started"/>
+    </start>
+
+    <custom name="Started" class="com.haulmont.thesis.core.activity.task.StartActivity">
+        <transition name="Ok" to="DelayedStart"/>
+    </custom>
+
+    <custom name="DelayedStart" class="com.haulmont.thesis.core.activity.task.DelayedStartAssigner">
+        <property name="role">
+            <string value="10-Initiator"/>
+        </property>
+        <property name="timersFactory">
+            <object class="process.taskman.timers.DelayedStartTimersFactory"/>
+        </property>
+        <property name="notify">
+            <string value="false"/>
+        </property>
+        <transition name="Ok" to="SetExecutorSwitch"/>
+        <transition name="ChangeStartDate" to="DelayedStart"/>
+    </custom>
+
+    <custom name="SetExecutorSwitch" class="com.haulmont.thesis.core.activity.task.SetExecutorActivity">
+        <transition name="switch" to="IsSelfAssignedTaskAfterStart"/>
+    </custom>
+
+    <custom name="IsSelfAssignedTaskAfterStart" class="com.haulmont.workflow.core.activity.Decision">
+        <property name="scriptName">
+            <string value="isSelfAssignedTask.groovy"/>
+        </property>
+        <transition name="yes" to="InWork"/>
+        <transition name="no" to="Assigned"/>
+    </custom>
+
+    <custom name="Refused" class="com.haulmont.workflow.core.activity.Assigner">
+        <property name="role">
+            <string value="10-Initiator"/>
+        </property>
+        <transition name="Assign" to="DelayedStart"/>
+        <transition name="FinishByInitiator" to="FinishByInitiatorDateFact"/>
+    </custom>
+
+    <custom name="SetExecutorAssigned" class="com.haulmont.thesis.core.activity.task.SetExecutorActivity">
+        <transition name="Assign" to="Assigned"/>
+    </custom>
+
+    <custom name="Assigned" class="com.haulmont.thesis.core.activity.task.TaskAssigner">
+        <property name="role">
+            <string value="20-Executor"/>
+        </property>
+        <property name="transitionsWithAllUsers">
+            <string value="Refuse"/>
+        </property>
+        <property name="successTransition">
+            <string value="Complete,Accept,FinishByInitiator,Refuse"/>
+        </property>
+        <property name="timersFactory">
+            <object class="process.taskman.timers.TaskmanTimersFactory"/>
+        </property>
+        <property name="finishBySingleUser">
+            <true/>
+        </property>
+        <transition name="FinishByInitiator" to="FinishByInitiatorDateFact"/>
+        <transition name="Accept" to="RemoveOtherExecutorsInWork"/>
+        <transition name="Complete" to="RemoveOtherExecutorsComplete"/>
+        <transition name="NotCompleted" to="NotCompleted"/>
+        <transition name="Refuse" to="Refused"/>
+        <transition name="Reassign" to="SetExecutorAssigned"/>
+        <transition name="ReassignByInitiator" to="SetExecutorAssigned"/>
+    </custom>
+
+    <custom name="RemoveOtherExecutorsInWork" class="com.haulmont.thesis.core.activity.task.RemoveOtherExecutorsActivity">
+        <transition name="Accept" to="InWork"/>
+    </custom>
+
+    <custom name="InWork" class="com.haulmont.thesis.core.activity.task.TaskInWorkAssigner">
+        <property name="role">
+            <string value="20-Executor"/>
+        </property>
+        <property name="timersFactory">
+            <object class="process.taskman.timers.TaskmanTimersFactory"/>
+        </property>
+        <transition name="FinishByInitiator" to="FinishByInitiatorDateFact"/>
+        <transition name="Complete" to="IsControllerFilled"/>
+        <transition name="Refuse" to="Refused"/>
+        <transition name="NotCompleted" to="NotCompleted"/>
+        <transition name="ReassignByInitiator" to="SetExecutorAssigned"/>
+        <transition name="Reassign" to="SetExecutorAssigned"/>
+    </custom>
+
+    <custom name="RemoveOtherExecutorsComplete" class="com.haulmont.thesis.core.activity.task.RemoveOtherExecutorsActivity">
+        <transition name="Complete" to="IsControllerFilled"/>
+    </custom>
+
+    <custom name="IsControllerFilled" class="com.haulmont.workflow.core.activity.IsRoleAssignedDecider">
+        <property name="role">
+            <string value="30-Controller"/>
+        </property>
+        <transition name="yes" to="HundredPercent"/>
+        <transition name="no" to="FinishDateFactWoControl"/>
+    </custom>
+
+    <custom name="RemoveOtherExecutorsWoControl" class="com.haulmont.thesis.core.activity.task.RemoveOtherExecutorsActivity">
+        <transition name="CompleteWoControl" to="FinishDateFactWoControl"/>
+    </custom>
+
+    <custom name="HundredPercentWoControl" class="com.haulmont.thesis.core.activity.task.HundredPercentCompletionActivity">
+        <transition to="IsSelfAssignedTask"/>
+    </custom>
+
+    <custom name="IsSelfAssignedTask" class="com.haulmont.workflow.core.activity.Decision">
+        <property name="scriptName">
+            <string value="isSelfAssignedTask.groovy"/>
+        </property>
+        <transition name="yes" to="Finished"/>
+        <transition name="no" to="ControlByInitiatorDecision"/>
+    </custom>
+
+    <custom name="HundredPercent" class="com.haulmont.thesis.core.activity.task.HundredPercentCompletionActivity">
+        <transition to="InControl"/>
+    </custom>
+
+    <custom name="ControlByInitiatorDecision" class="com.haulmont.workflow.core.activity.Decision">
+        <property name="scriptName">
+            <string value="isControlByInitiatorDecision.groovy"/>
+        </property>
+        <transition name="yes" to="Completed"/>
+        <transition name="no" to="Finished"/>
+    </custom>
+
+    <custom name="InControl" class="com.haulmont.workflow.core.activity.Assigner">
+        <property name="role">
+            <string value="30-Controller"/>
+        </property>
+        <transition name="FinishByInitiator" to="FinishByInitiatorDateFact"/>
+        <transition name="Ok" to="ControlByInitiatorDecision"/>
+        <transition name="NotOk" to="SetExecutorAssigned"/>
+    </custom>
+
+    <!-- unused since 4.0.1 -->
+    <custom name="FinishDateFact" class="com.haulmont.thesis.core.activity.task.FinishDateFactActivity">
+        <transition to="ControlByInitiatorDecision"/>
+    </custom>
+
+    <custom name="Completed" class="com.haulmont.workflow.core.activity.Assigner">
+        <property name="role">
+            <string value="10-Initiator"/>
+        </property>
+        <transition name="Ok" to="Finished"/>
+        <transition name="NotOk" to="SetExecutorAssigned"/>
+    </custom>
+
+    <custom name="FinishDateFactWoControl" class="com.haulmont.thesis.core.activity.task.FinishDateFactWoControlActivity">
+        <transition to="HundredPercentWoControl"/>
+    </custom>
+
+    <custom name="NotCompleted" class="com.haulmont.workflow.core.activity.Assigner">
+        <property name="role">
+            <string value="10-Initiator"/>
+        </property>
+        <transition name="Assign" to="DelayedStart"/>
+        <transition name="FinishByInitiator" to="FinishByInitiatorDateFact"/>
+    </custom>
+
+    <custom name="Finished" class="com.haulmont.thesis.core.activity.task.EndActivity">
+        <transition to="End"/>
+    </custom>
+
+    <custom name="FinishByInitiatorDateFact" class="com.haulmont.thesis.core.activity.task.FinishDateFactActivity">
+        <transition to="FinishedByInitiatorHundredPercent"/>
+    </custom>
+
+    <custom name="FinishedByInitiatorHundredPercent" class="com.haulmont.thesis.core.activity.task.HundredPercentCompletionActivity">
+        <transition to="FinishedByInitiator"/>
+    </custom>
+
+    <custom name="FinishedByInitiator" class="com.haulmont.thesis.core.activity.task.FinishTaskActivity">
+        <transition to="End"/>
+    </custom>
+
+    <end name="End"/>
+</process>

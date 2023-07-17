@@ -21,4 +21,5 @@
             template="com/yeliseev/credit/web/ui/creditapplication/credit-application-browse.xml"/>
     <screen id="credit$CreditApplication.templateBrowse"
             template="com/yeliseev/credit/web/ui/creditapplication/credit-application-template-browse.xml"/>
+    <screen id="resolution.form" template="/com/yeliseev/credit/web/ui/resolution/ext-resolution-form.xml"/>
 </screen-config>
