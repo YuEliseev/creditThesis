@@ -74,7 +74,8 @@
                                             <row id="amountRow">
                                                 <textField id="amount" property="amount" datasource="cardDs"
                                                            width="theme://thesis.gui.editor-fields.width"
-                                                           caption="msg://com.yeliseev.credit.entity/Credit.amount"/>
+                                                           caption="msg://com.yeliseev.credit.entity/Credit.amount"
+                                                           visible="false"/>
                                             </row>
                                             <row id="creditKindRow">
                                                 <lookupField id="creditKind" property="creditKind" datasource="cardDs"

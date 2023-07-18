@@ -16,5 +16,6 @@ public class CreditApplicationBrowse<T extends CreditApplication> extends Abstra
     public void init(Map<String, Object> params) {
         super.init(params);
         entityName = "credit$CreditApplication";
+
     }
 }
