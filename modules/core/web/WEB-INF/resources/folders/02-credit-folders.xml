@@ -12,6 +12,7 @@
         <roles>
             <role>Administrators</role>
             <role>doc_initiator</role>
+            <role>secOfficer</role>
         </roles>
     </folder>
 
@@ -23,6 +24,7 @@
         <roles>
             <role>Administrators</role>
             <role>doc_initiator</role>
+            <role>secOfficer</role>
         </roles>
         <cardsSelectScript>com/yeliseev/credit/core/appfolders/creditapplication/NewCreditApplicationsSelectScript.groovy</cardsSelectScript>
         <quantityScript>com/yeliseev/credit/core/appfolders/creditapplication/NewCreditApplicationsQty.groovy</quantityScript>
@@ -39,6 +41,7 @@
         <roles>
             <role>Administrators</role>
             <role>doc_initiator</role>
+            <role>secOfficer</role>
         </roles>
         <cardsSelectScript>com/yeliseev/credit/core/appfolders/creditapplication/AppointedCreditApplicationsSelectScript.groovy</cardsSelectScript>
         <quantityScript>com/yeliseev/credit/core/appfolders/creditapplication/AppointedCreditApplicationsQty.groovy</quantityScript>
