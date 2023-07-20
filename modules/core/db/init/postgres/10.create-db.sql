@@ -41,3 +41,6 @@ create table CREDIT_CREDIT_APPLICATION (
     primary key (CARD_ID)
 )^
 -- end CREDIT_CREDIT_APPLICATION
+-- begin TM_TASK
+alter table TM_TASK add column CREDIT_APPLICATION_ID uuid ^
+-- end TM_TASK

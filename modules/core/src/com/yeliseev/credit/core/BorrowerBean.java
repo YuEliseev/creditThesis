@@ -42,4 +42,23 @@ public class BorrowerBean {
         }
         return result != null ? result : 0;
     }
+
+    public long getTotalCreditApplication(UUID borrowerId){
+        Long result;
+
+        try(Transaction transaction = persistence.createTransaction()){
+            EntityManager entityManager = persistence.getEntityManager();
+
+            Query query = entityManager
+                    .createQuery("select count(ca) from credit$CreditApplication ca " +
+                            "join ca.borrower bor " +
+                            "where bor.id = :borrowerId ");
+            query.setParameter("borrowerId", borrowerId);
+            result = (Long) query.getFirstResult();
+
+            transaction.commit();
+        }
+
+        return result != null ? result : 0;
+    }
 }

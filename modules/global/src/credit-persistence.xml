@@ -14,5 +14,6 @@
         <class>com.yeliseev.credit.entity.CreditKind</class>
         <class>com.yeliseev.credit.entity.Credit</class>
         <class>com.yeliseev.credit.entity.CreditApplication</class>
+        <class>com.yeliseev.credit.entity.ExtTask</class>
     </persistence-unit>
 </persistence>

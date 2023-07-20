@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2023 LTD Haulmont Samara. All Rights Reserved.
  * Haulmont Samara proprietary and confidential.

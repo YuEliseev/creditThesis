@@ -179,7 +179,7 @@ public class CreditEdit<T extends Credit> extends AbstractCardEditor<T> {
 
     protected void initAmountField(){
         UserSessionToolsImpl userSessionTools = AppBeans.get(UserSessionToolsImpl.class);
-        if(!userSessionTools.isCurrentUserInRole(ThesisConstants.SEC_ROLE_ADMINISTRATOR)){
+        if(userSessionTools.isCurrentUserInRole(ThesisConstants.SEC_ROLE_ADMINISTRATOR)){
             getComponent("amount").setVisible(true);
             amount.setVisible(true);
         }

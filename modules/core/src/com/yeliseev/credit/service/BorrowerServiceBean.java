@@ -13,6 +13,7 @@ import com.yeliseev.credit.entity.CreditApplication;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.UUID;
 
 @Service(BorrowerService.NAME)
 public class BorrowerServiceBean implements BorrowerService {
@@ -29,5 +30,11 @@ public class BorrowerServiceBean implements BorrowerService {
         result = borrowerBean.getCountCreditApplication(borrower.getId(), bank.getId());
 
         return result;
+    }
+
+    @Override
+    public long getTotalCreditApplication(UUID borrower) {
+
+        return borrowerBean.getTotalCreditApplication(borrower);
     }
 }

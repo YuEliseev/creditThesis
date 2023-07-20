@@ -126,4 +126,44 @@
         <property name="edmInbound"/>
         <property name="template"/>
     </view>
+    <view entity="credit$ExtTask" name="edit" overwrite="true" extends="_local">
+        <property name="creditApplication" view="_minimal"/>
+        <property name="organization" view="_minimal"/>
+        <property name="createTs"/>
+        <property name="createdBy"/>
+        <property name="project" view="_minimal"/>
+        <property name="category" view="_minimal"/>
+        <property name="primaryTask" view="_local"/>
+        <property name="substitutedCreator" view="user-minimal"/>
+        <property name="initiator" view="_local"/>
+        <property name="executor" view="_local"/>
+        <property name="projects" view="_minimal"/>
+        <property name="creator" view="user-minimal"/>
+        <property name="parentCard" view="card-tree-for-parent"/>
+        <property name="attachments" view="card-edit">
+            <property name="createTs"/>
+        </property>
+        <property name="roles" view="card-edit"/>
+        <property name="procs" view="card-edit"/>
+        <property name="proc" view="task-edit"/>
+        <property name="taskType" view="edit"/>
+        <property name="priority" view="_minimal"/>
+        <property name="cardAdditionalInfo" view="_local"/>
+    </view>
+    <view entity="credit$ExtTask" name="browse" overwrite="true" extends="_local">
+        <property name="creditApplication" view="_minimal"/>
+        <property name="primaryTask" view="_minimal"/>
+        <property name="project" view="_minimal"/>
+        <property name="category" view="_minimal"/>
+        <property name="substitutedCreator" view="user-minimal"/>
+        <property name="initiator" view="_minimal"/>
+        <property name="executor" view="_minimal"/>
+        <property name="parentCard" view="_minimal"/>
+        <property name="taskType" view="_minimal"/>
+        <property name="priority" view="_local"/>
+        <property name="proc" view="_local"/>
+        <property name="createdBy"/>
+        <property name="createTs"/>
+        <property name="cardAdditionalInfo" view="_local"/>
+    </view>
 </views>

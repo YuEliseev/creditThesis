@@ -65,5 +65,26 @@
                 <c join="left join {E}.versionOf v">v is null</c>
             </reindexQueryFilter>
         </entity>
+        <entity class="com.yeliseev.credit.entity.ExtTask">
+            <include re=".*"/>
+            <include name="attachments.file"/>
+            <include name="assignments.attachments.file"/>
+            <exclude name="cardInfos"/>
+            <exclude name="cardVariables"/>
+            <exclude name="jbpmProcessId"/>
+            <exclude name="parentCard"/>
+            <exclude name="proc"/>
+            <exclude name="procFamily"/>
+            <exclude name="procs"/>
+            <exclude name="subCards"/>
+            <exclude name="aclList"/>
+            <exclude name="cardAdditionalInfo"/>
+            <exclude name="cardUserInfo"/>
+            <exclude name="copyFrom"/>
+            <exclude name="currentActorsFullString"/>
+            <exclude name="currentActorsString"/>
+            <exclude name="edmSending"/>
+            <exclude name="signatures"/>
+        </entity>
     </entities>
 </fts-config>

@@ -228,3 +228,6 @@ INSERT INTO public.sec_constraint(
     '{E}.id = ca.id or acl.user.id = :session$userId or acl.global = true',
     null, null, true, (select ID from sec_group where NAME = 'Служба безопасности'))^
 --end update secConstraint
+-- begin update discriminator for ExtTask
+update WF_CARD set CARD_TYPE = '2200' where CARD_TYPE = '20' ^
+-- end update discriminator for ExtTask
