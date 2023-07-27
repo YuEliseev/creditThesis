@@ -8,5 +8,7 @@
 <metadata xmlns="http://schemas.haulmont.com/cuba/metadata.xsd">
     
     <metadata-model namespace="credit"
-                    root-package="com.yeliseev.credit"/>
+                    root-package="com.yeliseev.credit">
+        <class>com.yeliseev.credit.entity.BankStatistic</class>
+    </metadata-model>
 </metadata>

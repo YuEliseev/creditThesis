@@ -10,10 +10,10 @@
         <conditions>
             <filter>
                 <and>
-                    <c name="bank" class="com.haulmont.thesis.core.entity.Bank"
+                    <c name="bankName" class="com.haulmont.thesis.core.entity.Bank"
                        caption="msg://com.company.credit.entity/CreditApplication"
                        type="CUSTOM" entityAlias="d" join="join d.credit c">
-                        c.bank.id in (select k.id from df$Bank k where
+                        c.bankName.id in (select k.id from df$Bank k where
                         k.id = :component$genericFilter.bank59834)
                         <param name="component$genericFilter.bank59834"
                                javaClass="com.haulmont.thesis.core.entity.Bank">

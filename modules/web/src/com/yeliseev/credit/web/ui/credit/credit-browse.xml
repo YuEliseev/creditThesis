@@ -79,7 +79,7 @@
                             <column id="date"/>
                             <column id="amount"/>
                             <column id="creditKind"/>
-                            <column id="bank"/>
+                            <column id="bankName"/>
                             <column id="bankManager"/>
                             <column id="guarantor"/>
                         </columns>

@@ -84,9 +84,9 @@
                                                              optionsDatasource="creditKindsDs"/>
                                             </row>
                                             <row id="bankRow">
-                                                <lookupField id="bank" property="bank" datasource="cardDs"
+                                                <lookupField id="bankName" property="bankName" datasource="cardDs"
                                                              width="theme://thesis.gui.editor-fields.width"
-                                                             caption="msg://com.yeliseev.credit.entity/Credit.bank"
+                                                             caption="msg://com.yeliseev.credit.entity/Credit.bankName"
                                                              optionsDatasource="banksDs"/>
                                             </row>
                                             <row id="bankAmountRow">

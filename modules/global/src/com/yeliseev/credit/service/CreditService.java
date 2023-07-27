@@ -6,15 +6,19 @@
 
 package com.yeliseev.credit.service;
 
+import com.yeliseev.credit.entity.BankStatistic;
 import com.yeliseev.credit.entity.Credit;
 import com.yeliseev.credit.entity.CreditKind;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface CreditService {
     String NAME = "credit_CreditService";
 
     BigDecimal getTotalBankAmount(Credit credit);
+
+    List<BankStatistic> getBankStatistic();
 
     void roundAmountCeiling(Credit credit);
 

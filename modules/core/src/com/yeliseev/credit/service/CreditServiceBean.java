@@ -9,12 +9,14 @@ package com.yeliseev.credit.service;
 import com.yeliseev.credit.core.BankBean;
 import com.yeliseev.credit.core.CreditBean;
 import com.yeliseev.credit.core.CreditKindBean;
+import com.yeliseev.credit.entity.BankStatistic;
 import com.yeliseev.credit.entity.Credit;
 import com.yeliseev.credit.entity.CreditKind;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service(CreditService.NAME)
 public class CreditServiceBean implements CreditService {
@@ -40,7 +42,6 @@ public class CreditServiceBean implements CreditService {
 
         return bankBean.getTotalAmount(credit.getBank().getId());
     }
-
     @Override
     public void addCreditKindAmount(CreditKind creditkind, BigDecimal addition) {
 
@@ -51,5 +52,11 @@ public class CreditServiceBean implements CreditService {
     public BigDecimal getCreditKindAmount(CreditKind creditKind) {
 
         return creditKindBean.getTotalAmount(creditKind.getId());
+    }
+
+    @Override
+    public List<BankStatistic> getBankStatistic() {
+
+        return bankBean.getBankStatistic();
     }
 }

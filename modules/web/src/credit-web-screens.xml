@@ -25,4 +25,5 @@
     <screen id="tm$Task.browse" template="com/yeliseev/credit/web/ui/exttask/ext-task-browse.xml"/>
     <screen id="tm$Task.edit" template="com/yeliseev/credit/web/ui/exttask/ext-task-edit.xml"/>
     <screen id="df$Individual.browseFrame" template="/com/yeliseev/credit/web/ui/Individual/ext-individual-browse-frame.xml"/>
+    <screen id="df$SimpleDoc.edit" template="/com/yeliseev/credit/web/ui/simpleDoc/ext-simple-doc-edit.xml"/>
 </screen-config>

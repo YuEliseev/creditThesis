@@ -31,9 +31,9 @@ public class BorrowerBean {
             Query query = entityManager
                     .createQuery("select count(ca) from credit$CreditApplication ca " +
                             "join ca.borrower bor " +
-                            "join ca.credit.bank bank " +
+                            "join ca.credit.bankName bankName " +
                             "where bor.id = :borrowerId " +
-                            "and bank.id = :bankId");
+                            "and bankName.id = :bankId");
             query.setParameter("borrowerId", borrowerId);
             query.setParameter("bankId", bankId);
             result = (Long) query.getFirstResult();
