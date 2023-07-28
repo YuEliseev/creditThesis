@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "47738cab-9dc2-46b7-9e91-be7265d5ce9d",
+		"name": "thesis-credit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23560111",
+		"_collection_link": "https://www.postman.com/science-architect-24185617/workspace/thesiscredit/collection/23560111-47738cab-9dc2-46b7-9e91-be7265d5ce9d?action=share&creator=23560111&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "get UserSession",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/login?u=admin&p=admin&l=ru",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "u",
+							"value": "admin"
+						},
+						{
+							"key": "p",
+							"value": "admin"
+						},
+						{
+							"key": "l",
+							"value": "ru"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get CreditApplications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/query.json?e=credit$CreditApplication&q=select+e+from+credit$CreditApplication+e&s=&view=_minimal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"query.json"
+					],
+					"query": [
+						{
+							"key": "e",
+							"value": "credit$CreditApplication"
+						},
+						{
+							"key": "q",
+							"value": "select+e+from+credit$CreditApplication+e"
+						},
+						{
+							"key": "s",
+							"value": ""
+						},
+						{
+							"key": "view",
+							"value": "_minimal"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create new creditKind",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"commitInstances\":[\r\n    {\r\n        \"id\":\"NEW-credit$CreditKind\",\r\n        \"code\":\"REST-created\",\r\n        \"name\":\"Новый вид кредита\",\r\n        \"description\":\"создан через REST\"\r\n    }\r\n]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/commit?s=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"commit"
+					],
+					"query": [
+						{
+							"key": "s",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get userTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/query.json?e=tm$Task&q=select+e+from+tm$Task+e+where+e.executor.id = :executorId&s=&view=_minimal&executorId=60885987-1b61-4247-94c7-dff348347f93",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"query.json"
+					],
+					"query": [
+						{
+							"key": "e",
+							"value": "tm$Task"
+						},
+						{
+							"key": "q",
+							"value": "select+e+from+tm$Task+e+where+e.executor.id = :executorId"
+						},
+						{
+							"key": "s",
+							"value": ""
+						},
+						{
+							"key": "view",
+							"value": "_minimal"
+						},
+						{
+							"key": "executorId",
+							"value": "60885987-1b61-4247-94c7-dff348347f93"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get creditApplication statistic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"service\":\"credit_CreditService\",\r\n    \"method\":\"getBankStatistic\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/service?s=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"service"
+					],
+					"query": [
+						{
+							"key": "s",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/app-portal/api/logout?session=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"app-portal",
+						"api",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "session",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -205,12 +205,12 @@
                                                              optionsDatasource="contractorsDs"/>
                                             </row>
                                             <row id="bankRow">
-                                                <textField id="bankName"
+                                                <textField id="bank"
                                                            editable="false"
                                                            width="theme://thesis.gui.editor-fields.width"
                                                            caption="msg://creditBank"
                                                            datasource="creditsDs"
-                                                           property="bankName"/>
+                                                           property="bank"/>
                                             </row>
                                             <row id="bankApplicationRow">
                                                 <textField id="bankApplication"

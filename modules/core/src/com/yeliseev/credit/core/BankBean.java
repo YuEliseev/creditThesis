@@ -11,9 +11,9 @@ import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Query;
 import com.haulmont.cuba.core.Transaction;
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.thesis.core.entity.Bank;
 import com.yeliseev.credit.entity.BankStatistic;
+import com.yeliseev.credit.entity.Credit;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -28,8 +28,6 @@ public class BankBean {
     protected Persistence persistence;
     @Inject
     protected DataManager dataManager;
-    @Inject
-    protected Metadata metadata;
 
     public static final String NAME = "credit_BankBean";
 
@@ -40,7 +38,7 @@ public class BankBean {
             EntityManager entityManager = persistence.getEntityManager();
 
             Query query = entityManager.createQuery("select sum(c.amount) from credit$Credit c " +
-                    "join c.bankName b where b.id = :bankId");
+                    "join c.bank b where b.id = :bankId");
             query.setParameter("bankId", bankId);
             result = (BigDecimal) query.getFirstResult();
 
@@ -56,14 +54,14 @@ public class BankBean {
             try(Transaction transaction = persistence.createTransaction()){
                 EntityManager entityManager = persistence.getEntityManager();
 
-                Query query = entityManager.createQuery("select c.bank from credit$Credit c", Bank.class);
+                Query query = entityManager.createQuery("select distinct c.bank from credit$Credit c", Bank.class);
 
                 List<Bank> banks = query.getResultList();
 
                 for (Bank bank : banks) {
-                    BankStatistic bankStatistic = metadata.create(BankStatistic.class);
+                    BankStatistic bankStatistic = dataManager.create(BankStatistic.class);
 
-                    bankStatistic.setBankName(bankStatistic.getBankName());
+                    bankStatistic.setBankName(bank.getName());
                     bankStatistic.setCountCredit(getTotalAmount(bank.getId()));
                     resultList.add(bankStatistic);
                 }

@@ -1,0 +1,10 @@
+
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services.xsd">
+    <service name="workflow_WfService">
+        <method name="finishAssignment"/>
+        <method name="startProcess"/>
+    </service>
+    <service name="credit_CreditService">
+        <method name="getBankStatistic"/>
+    </service>
+</services>

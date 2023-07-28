@@ -24,11 +24,6 @@ public class BankStatistic extends BaseUuidEntity {
     @MetaProperty
     protected BigDecimal countCredit;
 
-    public BankStatistic(String bankName, BigDecimal countCredit) {
-        this.bankName = bankName;
-        this.countCredit = countCredit;
-    }
-
     public void setCountCredit(BigDecimal countCredit) {
         this.countCredit = countCredit;
     }

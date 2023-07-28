@@ -27,7 +27,6 @@ public class CreditServiceBean implements CreditService {
     @Inject
     CreditKindBean creditKindBean;
 
-
     @Override
     public void roundAmountCeiling(Credit credit) {
 
